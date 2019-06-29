@@ -1,4 +1,3 @@
-
 import Anchor from './markupElements/anchor';
 import Strong from './markupElements/strong';
 import Paragraph from './markupElements/paragraph';
