@@ -1,59 +1,64 @@
+import feedParseTypes from '../constants/feedParseTypes';
 
-const formattedTweet = (input, processedInformation) => {
+import markupTypes from '../constants/markupTypes';
+import HTMLMarker from '../htmlMarker/htmlMarker';
 
-	processedInformation = processedInformation.sort((a,b) => {
-		return (a.startPosition > b.startPosition);
-	});
+import {
+	hashArrayWith2Indices
+} from '../utility/utiltyMethods';
 
-	var hashArray = {};
-	var result = '';
-	for (let index = 0; index < input.length; index++) {
-		hashArray[index] = input.charAt(index);		
-	}
-	
-	var brokenArray = input.split(' ');
 
+const getIndicedFeedText = (feed) => {
+	var splitFeed = feed.split(' ');
 	var currentIndex = 0;
-	brokenArray = brokenArray.map((element, index) => {
-		let updatedElement = Object.assign({}, {text: brokenArray[index]});
+
+	splitFeed = splitFeed.map((element, index) => {
+		let updatedElement = Object.assign({}, {text: splitFeed[index]});
 		updatedElement['startPosition'] = currentIndex;
 		updatedElement['endPosition'] = currentIndex + updatedElement.text.length;
 		currentIndex = updatedElement['endPosition'] + 1;
 	
 		return updatedElement;
 	});
+	return splitFeed;
+}
 
 
-	var hashedProcessedInformation = [];
-	var hashedBrokenArray = [];
+const formattedTweet = (input, processedInformation) => {
 
-	for (let index = 0; index < processedInformation.length; index++) {
-		let key = `${processedInformation[index]['startPosition']}/${processedInformation[index]['endPosition']}`;
-		hashedProcessedInformation[key] = Object.assign({}, processedInformation[index]);
-	}
 
-	for (let index = 0; index < brokenArray.length; index++) {
-		let key = `${brokenArray[index]['startPosition']}/${brokenArray[index]['endPosition']}`;
-		hashedBrokenArray[key] = Object.assign({}, brokenArray[index]);
-	}
+	var hashedProcessedInformation = hashArrayWith2Indices(
+										processedInformation, 
+										'startPosition', 
+										'endPosition'
+									);
+
+	var hashedBrokenArray = hashArrayWith2Indices(
+								getIndicedFeedText(input), 
+								'startPosition', 
+								'endPosition'
+							);
 
 	var result = '';
 
 	for (const key in hashedBrokenArray) {
 		let text = hashedBrokenArray[key]['text'];
-
+		
 		if(hashedProcessedInformation.hasOwnProperty(key)){
-			switch (hashedProcessedInformation[key].type) {
-				case 'Entity':
-					result += `<strong>${text}</strong>`;
+			let type = hashedProcessedInformation[key].type;
+			switch (type) {
+				case feedParseTypes.ENTITY:
+					result += new HTMLMarker(markupTypes.STRONG, text).createMarkupElement();
 				break;
 
-				case 'Link':
-					result += `<a href="${text}">${text} </a>`;
+				case feedParseTypes.LINK:
+					result += new HTMLMarker(markupTypes.ANCHOR, text, text).createMarkupElement();
 				break;
 
-				case 'Twitter username':
-					result += `@ <a href="http://twitter.com/${text.substr(1)}">${text.substr(1)}</a>`;
+				case feedParseTypes.USER:
+					let link =  `http://twitter.com/${text.substr(1)}`;
+					let textModified = text.substr(1);
+					result += `@${new HTMLMarker(markupTypes.ANCHOR, textModified, link).createMarkupElement()}`;
 				break;
 			}
 		}
