@@ -6,7 +6,8 @@ class Strong {
 		this.text = text;
 	}
 
-	createStrongTag(){
+	//returns the necessary html markup element
+	create(){
 		return `<strong>${this.text}</strong>`;
 	}
 }

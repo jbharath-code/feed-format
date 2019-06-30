@@ -8,6 +8,7 @@ class User{
 		this.baseUrl = baseUrl
 	}
 
+	// returns the necessary HTML markup element that is respective to this tweet element
 	create(){
 		let link =  `${this.baseUrl}${this.text.substr(1)}`;
 		let displayText = this.text.substr(1);

@@ -6,7 +6,8 @@ class Paragraph {
 		this.text = text;
 	}
 
-	createParagraphTag(){
+	//returns the necessary html markup element
+	create(){
 		return `<p>${this.text}</p>`;
 	}
 }

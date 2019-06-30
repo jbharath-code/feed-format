@@ -12,6 +12,9 @@ class TweetFormatter {
 		this.domainUrl = domainUrl;
 	}
 
+
+	// takes the type and creates the necessary element specifc markup styling that is mapped
+	// internally
 	createFormatter(){
 		switch (this.type) {
 			case feedParseTypes.ENTITY:

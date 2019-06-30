@@ -1,8 +1,28 @@
+@import '../../fonts/fonts.css';
 
+.root-container {
+	background: #132F63;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Lato';
+}
 .container {
 	min-height: 97vh;
+	width: 600px;
+	margin: auto;
+}
+
+.card {
+	margin: 20px 0px;
+	background: #fff;
+	border-radius: 4px;
+	min-height: 100px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 	display: flex;
 	align-items: center;
-	flex-direction: column;
-
+	padding: 10px 30px;
+	width: 100%;
+	font-size: 18px;
 }

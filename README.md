@@ -1,48 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ## feed-format
 
 The whole system consists of 3 modules.  
 1. A system which scraps data from social sites like twitter and facebook
-2. This system takes the data from the previous and gives information about kinds of elements present ina tweet like username, link, entities etc
+2. This system takes the data from the previous and gives information about kinds of elements present in a tweet like username, link, entities etc
+3. This modules should take tweet text from the first module and the output generated from second module for that particular as inputs. The output is a marked up version with html styles for the same tweet
 
+### To execute/check:
+In the project directory, 
+1. to start in web mode, you can run: ```npm start```. It runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. to read the main logic code, you can view folders from ```src/app/js``` path
 
-### Problem Statement:  
-This modules should take tweet text from the first module and the output generated from second module for that particular as inputs. The output is a marked up version with html styles for the same tweet
+### Main Module Explanation/Logic:
+(the code related to this can be found at ```src/app/js```)
 
-### Approach:
 Because the system has to be extensible in terms of new information that can be scrapped, styling the elements, I have taken a factory pattern so that depending on the need you can add more to the system.  
 Taking the same to implementation, we have a twitter class which takes a tweet and the parsed information about the tweet text.  
 Now the job is to add markup styling to the test as per the elements.
 
-To talk about the components of the code:
+### Components of code:
 1. Styling
     1. There will be one class ```HTMLMaker``` which will be a factory to the underlying stylings available
     2. The factory needs to get understand which styling is need and it will generate appropiate kind of result to the caller.```anchor, strong, paragraph```
@@ -63,5 +38,8 @@ To talk about the components of the code:
  ### To create a new tweet element:
  1. Create a constant in ```feedParseTypes.js```
  2. Make a file ```<newTweetElement>.js``` in ```tweet/format/parseElements``` and use the HTMLMarker class to tell which markup styling is needed (steps are mentioned above to create a new markup style)
-3. Add your element in switch case in ```tweetFormatter.js``` 
+ 3. Add your element in switch case in ```tweetFormatter.js``` 
  
+### Comments
+
+The file ```src/app/js/main.js``` is a sample implementation of the js logic in case it has to be use anywhere else other than view

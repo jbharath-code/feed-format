@@ -14,23 +14,30 @@ class AppContainer extends React.Component {
 
 		var tweet = new Tweet(collector.text, metadataGenerator.metadata);
 		tweet.parseTweet();
+		tweet.addMarkupToTweet();
 		this.state = {
 			collectedTweet: collector.text,
-			markedUpTweet: tweet.addMarkupToTweet()
+			markedUpTweet: tweet.markedUpTweet,
+			rendererForMarkedUpTweet: tweet.rendererForMarkedUpTweet
 		};
 	}
 
 
 	render(){
 		return (
-			<div className="container">
-				<div>
-					{this.state.collectedTweet}
+			<div className="root-container">
+				<div className="container">
+					<div className="card">
+						{this.state.collectedTweet}
+					</div>
+					<div className="card">
+						{this.state.markedUpTweet}
+					</div>
+					<div
+						className="card" 
+						dangerouslySetInnerHTML={{ __html: this.state.rendererForMarkedUpTweet }}>
+					</div>
 				</div>
-				<div>
-					{this.state.markedUpTweet}
-				</div>
-				<div dangerouslySetInnerHTML={{ __html: this.state.markedUpTweet }}></div>
 			</div>
 		);
 	}

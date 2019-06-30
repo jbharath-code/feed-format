@@ -7,7 +7,8 @@ class Anchor {
 		this.link = link;
 	}
 
-	createAnchorTag(){
+	//returns the necessary html markup element
+	create(){
 		return `<a href="${this.link}">${this.text}</a>`;
 	}
 }

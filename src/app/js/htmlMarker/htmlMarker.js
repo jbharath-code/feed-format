@@ -12,19 +12,21 @@ class HTMLMarker{
 
 	}
 
+	// takes the type and creates the necessary markup styling that is mapped
+	// internally
 	createMarkupElement(){
 		switch (this.type) {
 			case markupTypes.ANCHOR:
 				const anchorElement = new Anchor(this.text, this.link);
-				return anchorElement.createAnchorTag();
+				return anchorElement.create();
 			
 			case markupTypes.STRONG:
 				const strongElement = new Strong(this.text);
-				return strongElement.createStrongTag();
+				return strongElement.create();
 		
 			default:
 				const paragraphElement = new Paragraph(this.text);
-				return paragraphElement.createParagraphTag();
+				return paragraphElement.create();
 		}
 	}
 }
