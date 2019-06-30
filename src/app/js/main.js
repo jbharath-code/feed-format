@@ -2,7 +2,7 @@ import Tweet from './tweet/tweet';
 import Collector from './modules/collector';
 import MetadataGenerator from './modules/metadataGenerator';
 
-let app = () => {
+const main = () => {
 
     var collector = new Collector();
     var metadataGenerator = new MetadataGenerator();
@@ -13,4 +13,5 @@ let app = () => {
 
     console.log(tweet.markedUpTweet);
 }
-app();
+
+export default main;
