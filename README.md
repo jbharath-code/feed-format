@@ -42,4 +42,4 @@ Now the job is to add markup styling to the test as per the elements.
  
 ### Comments
 
-The file ```src/app/js/main.js``` is a sample implementation of the js logic in case it has to be use anywhere else other than view
+The file ```src/app/js/main.js``` is a sample implementation of the js logic in case it has to be used anywhere else other than view
