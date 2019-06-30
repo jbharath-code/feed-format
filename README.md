@@ -7,7 +7,7 @@ The whole system consists of 3 modules.
 
 ### To execute/check:
 In the project directory, 
-1. to start in web mode, you can run: ```npm start```. It runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. to start in web mode, you can run: ```npm install && npm start```. It runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 2. to read the main logic code, you can view folders from ```src/app/js``` path
 
 ### Main Module Explanation/Logic:
