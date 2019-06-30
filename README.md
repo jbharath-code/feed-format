@@ -5,6 +5,9 @@ The whole system consists of 3 modules.
 2. This system takes the data from the previous and gives information about kinds of elements present in a tweet like username, link, entities etc
 3. This modules should take tweet text from the first module and the output generated from second module for that particular as inputs. The output is a marked up version with html styles for the same tweet
 
+## Task at hand:
+To code for the module 3
+
 ### To execute/check:
 In the project directory, 
 1. to start in web mode, you can run: ```npm install && npm start```. It runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
