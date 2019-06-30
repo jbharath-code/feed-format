@@ -24,3 +24,15 @@ To talk about the components of the code:
     1. These are like enumeration classes but created with custom use cases.
     2. They will act like the handshake between new stylings that are going to be built in future as well as for the entities
     3. Incase a new social media scrapper is added, accordingly new enumerations can be created and used for the factory pattern to be followed.
+   
+ 
+ #### To create a new decoration:
+ 1. Create a constant in ```markupTypes.js```
+ 2. Make a file ```<newMarkupElement>.js``` in ```htmlMarker/markupElements.js``` with your appropirate styling
+ 3. Add your decoration in switch case in ```htmlMarker.js``` 
+   
+ #### To create a new tweet element:
+ 1. Create a constant in ```feedParseTypes.js```
+ 2. Make a file ```<newTweetElement>.js``` in ```tweet/format/parseElements``` and use the HTMLMarker class to tell which markup styling is needed (steps are mentioned above to create a new markup style)
+3. Add your element in switch case in ```tweetFormatter.js``` 
+ 
