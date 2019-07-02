@@ -33,10 +33,6 @@ class AppContainer extends React.Component {
 					<div className="card">
 						{this.state.markedUpTweet}
 					</div>
-					<div
-						className="card" 
-						dangerouslySetInnerHTML={{ __html: this.state.rendererForMarkedUpTweet }}>
-					</div>
 				</div>
 			</div>
 		);

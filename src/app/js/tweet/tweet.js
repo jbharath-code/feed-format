@@ -1,5 +1,6 @@
 import { hashArrayWith2Indices } from "../utility/utiltyMethods";
 import TweetFormatter from "./format/tweetFormatter";
+import feedParseTypes from "../constants/feedParseTypes";
 
 
 class Tweet{
@@ -38,45 +39,45 @@ class Tweet{
 	//after parsing the tweet and indexing it
 	// prepare text along with style markups and text to render incase it is used in web
 	addMarkupToTweet(){
-
-		var hashedProcessedInformation = hashArrayWith2Indices(
-			this.tweetParseMetadata, 
-			'startPosition', 
-			'endPosition'
-		);
-
-		var hashedBrokenArray = hashArrayWith2Indices(
-			this.parsedTweet, 
-			'startPosition', 
-			'endPosition'
-		);
-
-		for (const key in hashedBrokenArray) {
-			let text = hashedBrokenArray[key]['text'];
-			let type = '';
-			if(hashedProcessedInformation.hasOwnProperty(key)){
-				type = hashedProcessedInformation[key].type;
-			}
-
-			// The tweetformatter is the factory fot tweets and takes care of the logic to appropiately return the
-			// necessary styling for the element
-			let stringText = new TweetFormatter(type, text, this.domainUrl).createFormatter();
-			this.markedUpTweet += stringText;
-			this.markedUpTweet += ' ';
-			
-			this.rendererForMarkedUpTweet += stringText;
-			this.rendererForMarkedUpTweet += '&nbsp;'
-		}	
-
-		//this is the actual output that is needed.
-		this.markedUpTweet = this.markedUpTweet.slice(0,-1);
+		this.tweetParseMetadata.sort((a,b) => {
+			return a.startPosition > b.startPosition
+		});
 		
-		//This is being created only for rendering purpose
-		this.rendererForMarkedUpTweet = this.rendererForMarkedUpTweet.slice(0, -6);
+		var stringHash = [];
+		for (let index = 0; index < this.tweet.length; index++) {
+			stringHash[index] = this.tweet[index];
+		}
+		
+		var tweetParseMetadataUpdated = [];
+		for (let index = 0; index < this.tweetParseMetadata.length; index++) {	
+			tweetParseMetadataUpdated.push(this.tweetParseMetadata[index]);
+			if(index > 0){
+				let prevElement = this.tweetParseMetadata[index - 1];
+				let currentElement = this.tweetParseMetadata[index];
+				if((currentElement.startPosition - prevElement.endPosition) != 1){
+					var element = {
+						startPosition: prevElement.endPosition + 1,
+						endPosition: currentElement.startPosition - 1,
+						type: feedParseTypes.TEXT
+					}
+					tweetParseMetadataUpdated.push(element);
+				}
+			}
+		}
+
+		tweetParseMetadataUpdated.sort((a,b) => {
+			return a.startPosition > b.startPosition
+		});
+		
+		var result = '';
+		tweetParseMetadataUpdated.forEach(element => {
+			let text = this.tweet.substring(element.startPosition, element.endPosition + 1);
+			result += new TweetFormatter(element.type, text, this.domainUrl).createFormatter();
+		});
+		
+		this.markedUpTweet = result;
+		this.rendererForMarkedUpTweet = result;
 	}
-
-
-
 }
 
 export default Tweet;

@@ -9,7 +9,7 @@ class Link{
 
 	// returns the necessary HTML markup element that is respective to this tweet element
 	create(){
-		return new HTMLMarker(markupTypes.ANCHOR, this.text, this.text).createMarkupElement();
+		return new HTMLMarker(markupTypes.ANCHOR, this.text, this.text.slice(0,-1)).createMarkupElement();
 	}
 }
 

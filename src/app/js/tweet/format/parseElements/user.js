@@ -12,7 +12,7 @@ class User{
 	create(){
 		let link =  `${this.baseUrl}${this.text.substr(1)}`;
 		let displayText = this.text.substr(1);
-		return `@${new HTMLMarker(markupTypes.ANCHOR, displayText, link).createMarkupElement()}`;
+		return ` @${new HTMLMarker(markupTypes.ANCHOR, displayText, link).createMarkupElement()}`;
 	}
 }
 
